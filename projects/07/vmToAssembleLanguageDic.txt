@@ -1,0 +1,112 @@
+// arithmetic: add sub neg
+// finished
+// add sub
+@SP
+M=M-1
+A=M
+D=M
+@SP
+A=M-1
+D=D+\-M
+M=D
+// neg
+@SP
+A=M-1
+M=-M
+
+// comparision: eq gt lt
+// finished
+// comparision prefix
+@SP
+M=M-1
+A=M
+D=M
+A=A-1
+D=D-M
+M=-1
+
+// eq
+@EQUAL
+D;JEQ
+@SP
+A=M-1
+M=0
+(EQUAL)
+
+// gt
+@GT
+D;JGT
+@SP
+A=M-1
+M=0
+(GT)
+
+// lt
+@LT
+D;JLT
+@SP
+A=M-1
+M=0
+(LT)
+
+// logical: and or not
+// 
+
+// push and pop
+// push
+// finished
+// push local\argument\this\that\temp i
+@i
+D=A
+@LCL\ARG\THIS\THAT\TEMP
+A=M+D
+D=M
+pushinto()
+
+// push constant i
+@i
+D=A
+pushinto()
+
+// push static i
+@Foo.i
+D=M
+pushinto()
+
+// pushinto
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// pop
+// pop local\argument\this\that\temp i
+@LCL\ARG\THIS\THAT\TEMP
+D=M
+
+@i
+D=D+A
+@R13
+M=D
+
+popout()
+
+@R13
+A=M
+M=D
+
+// pop static i
+popout()
+@Foo.i
+M=D
+
+// pop out
+@SP
+M=M-1
+A=M
+D=M
+
+// END: infinity loop
+@END
+0;JMP
